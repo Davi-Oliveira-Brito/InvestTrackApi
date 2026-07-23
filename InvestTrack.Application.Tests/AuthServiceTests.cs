@@ -35,6 +35,17 @@ namespace InvestTrack.Application.Tests
         }
 
         [Fact]
+        public async Task RegisterAsync_ComEmailEmCasingDiferenteJaCadastrado_LancaEmailJaCadastradoException()
+        {
+            var request = new RegisterRequest { Nome = "Davi", Email = "Davi@Teste.com", Password = "senha123" };
+            _userRepositoryMock
+                .Setup(r => r.ObterPorEmailAsync("davi@teste.com"))
+                .ReturnsAsync(User.Criar("Existente", "davi@teste.com", "hash-existente"));
+
+            await Assert.ThrowsAsync<EmailJaCadastradoException>(() => _sut.RegisterAsync(request));
+        }
+
+        [Fact]
         public async Task RegisterAsync_ComDadosValidos_RetornaTokenEPersisteUsuario()
         {
             var request = new RegisterRequest { Nome = "Davi", Email = "davi@teste.com", Password = "senha123" };

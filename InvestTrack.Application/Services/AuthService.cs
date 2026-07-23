@@ -23,12 +23,14 @@ namespace InvestTrack.Application.Services
 
         public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
         {
-            var usuarioExistente = await _userRepository.ObterPorEmailAsync(request.Email);
+            var email = request.Email.Trim().ToLowerInvariant();
+
+            var usuarioExistente = await _userRepository.ObterPorEmailAsync(email);
             if (usuarioExistente is not null)
-                throw new EmailJaCadastradoException(request.Email);
+                throw new EmailJaCadastradoException(email);
 
             var passwordHash = _passwordHasher.Hash(request.Password);
-            var user = User.Criar(request.Nome, request.Email, passwordHash);
+            var user = User.Criar(request.Nome, email, passwordHash);
 
             await _userRepository.AdicionarAsync(user);
 
@@ -38,7 +40,9 @@ namespace InvestTrack.Application.Services
 
         public async Task<AuthResponse> LoginAsync(LoginRequest request)
         {
-            var user = await _userRepository.ObterPorEmailAsync(request.Email);
+            var email = request.Email.Trim().ToLowerInvariant();
+
+            var user = await _userRepository.ObterPorEmailAsync(email);
             if (user is null || !_passwordHasher.Verify(request.Password, user.PasswordHash))
                 throw new CredenciaisInvalidasException();
 
