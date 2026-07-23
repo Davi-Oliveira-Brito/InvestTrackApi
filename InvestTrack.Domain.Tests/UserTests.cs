@@ -33,5 +33,14 @@ namespace InvestTrack.Domain.Tests
         {
             Assert.Throws<ArgumentException>(() => User.Criar("Davi Brito", emailInvalido!, "hash123"));
         }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("   ")]
+        [InlineData(null)]
+        public void Criar_ComPasswordHashInvalido_LancaArgumentException(string? passwordHashInvalido)
+        {
+            Assert.Throws<ArgumentException>(() => User.Criar("Davi Brito", "davi@teste.com", passwordHashInvalido!));
+        }
     }
 }
