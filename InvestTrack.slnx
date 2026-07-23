@@ -1,3 +1,6 @@
 <Solution>
   <Project Path="InvestTrack.Api/InvestTrack.Api.csproj" />
+  <Project Path="InvestTrack.Application/InvestTrack.Application.csproj" />
+  <Project Path="InvestTrack.Domain/InvestTrack.Domain.csproj" />
+  <Project Path="InvestTrack.Infrastructure/InvestTrack.Infrastructure.csproj" />
 </Solution>

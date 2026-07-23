@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InvestTrack.Application\InvestTrack.Application.csproj" />
+    <ProjectReference Include="..\InvestTrack.Domain\InvestTrack.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
