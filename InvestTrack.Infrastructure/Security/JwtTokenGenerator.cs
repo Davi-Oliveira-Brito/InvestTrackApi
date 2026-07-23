@@ -14,6 +14,9 @@ namespace InvestTrack.Infrastructure.Security
         public JwtTokenGenerator(IOptions<JwtSettings> options)
         {
             _settings = options.Value;
+
+            if (string.IsNullOrWhiteSpace(_settings.Secret) || _settings.Secret.Length < 32)
+                throw new InvalidOperationException("Jwt:Secret deve ter no mínimo 32 caracteres para garantir a segurança da assinatura HS256.");
         }
 
         public (string Token, DateTime ExpiraEm) GerarToken(Guid userId, string email, string nome)
