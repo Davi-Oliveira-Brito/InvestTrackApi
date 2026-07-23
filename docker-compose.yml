@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: investtrack-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: investtrack
+      POSTGRES_PASSWORD: investtrack123
+      POSTGRES_DB: investtrack
+    ports:
+      - "5433:5432"
+    volumes:
+      - investtrack-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  investtrack-postgres-data:
